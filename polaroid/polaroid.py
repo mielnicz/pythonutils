@@ -232,7 +232,6 @@ if __name__ == "__main__":
   # Prepare our resources
   fontName = join(split(argv[0])[0], RESOURCE_FONT)
   try:
-    global FONT_CAPTION
     FONT_CAPTION = ImageFont.truetype(fontName, RESOURCE_FONT_SIZE)
   except:
     showError("Could not load resource '%s'." % fontName)
