@@ -224,13 +224,6 @@ if __name__ == "__main__":
   # Verify the alignment
   if not align in ("left", "right", "top", "bottom", "center"):
     showError("Unknown alignment '%s'." % align)
-  # Show what our options are before we start processing
-  print("""Current settings:
-    Rotation: %s
-    Source  : %s
-    Target  : %s
-    Align   : %s
-    Caption : %s""" % (options['rotate'], source, target, align, caption))
   # Prepare our resources
   fontName = join(split(argv[0])[0], RESOURCE_FONT)
   try:
@@ -243,5 +236,5 @@ if __name__ == "__main__":
   sourceImage = addFrame(sourceImage)
   sourceImage = addCaption(sourceImage, caption)
   # Save the result
-  print("Image size is now %i x %i" % sourceImage.size)
+  print(target)
   sourceImage.save(target)
