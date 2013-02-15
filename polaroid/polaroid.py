@@ -23,9 +23,9 @@ IMAGE_RIGHT  = 50
 BORDER_SIZE  = 3
 
 # Colors
-COLOR_FRAME   = (255, 255, 255)
+COLOR_FRAME   = (237, 243, 214)
 COLOR_BORDER  = (0, 0, 0)
-COLOR_CAPTION = (0, 0, 255)
+COLOR_CAPTION = (58, 68, 163)
 
 # Font for the caption text
 FONT_CAPTION = None
