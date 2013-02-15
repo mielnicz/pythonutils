@@ -20,6 +20,8 @@ IMAGE_BOTTOM = 150
 IMAGE_LEFT   = 50
 IMAGE_RIGHT  = 50
 
+BORDER_SIZE  = 3
+
 # Colors
 COLOR_FRAME   = (255, 255, 255)
 COLOR_BORDER  = (0, 0, 0)
@@ -151,13 +153,13 @@ def addFrame(image):
   """ Adds the frame around the image
   """
   # Create the frame
-  frame = Image.new("RGB", (IMAGE_SIZE + IMAGE_LEFT + IMAGE_RIGHT, IMAGE_SIZE + IMAGE_TOP + IMAGE_BOTTOM), COLOR_FRAME)
-  # Add the source image
-  frame.paste(image, (IMAGE_LEFT, IMAGE_TOP))
+  frame = Image.new("RGB", (IMAGE_SIZE + IMAGE_LEFT + IMAGE_RIGHT, IMAGE_SIZE + IMAGE_TOP + IMAGE_BOTTOM), COLOR_BORDER)
   # Create outer and inner borders
   draw = ImageDraw.Draw(frame)
-  draw.rectangle((0, 0, frame.size[0], frame.size[1]), outline = COLOR_BORDER)
-  draw.rectangle((IMAGE_LEFT, IMAGE_TOP, IMAGE_LEFT + IMAGE_SIZE, IMAGE_TOP + IMAGE_SIZE), outline = COLOR_BORDER)
+  draw.rectangle((BORDER_SIZE, BORDER_SIZE, frame.size[0] - BORDER_SIZE, frame.size[1] - BORDER_SIZE), fill = COLOR_FRAME)
+  draw.rectangle((IMAGE_LEFT - BORDER_SIZE, IMAGE_TOP - BORDER_SIZE, IMAGE_LEFT + IMAGE_SIZE + BORDER_SIZE, IMAGE_TOP + IMAGE_SIZE + BORDER_SIZE), fill = COLOR_BORDER)
+  # Add the source image
+  frame.paste(image, (IMAGE_LEFT, IMAGE_TOP))
   # All done
   return frame
 
