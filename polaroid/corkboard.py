@@ -7,7 +7,7 @@
 #  library.
 #----------------------------------------------------------------------------
 from sys     import argv
-from os.path import join, split, splitext, isfile
+from os.path import join, split, splitext, isfile, realpath, dirname
 from random  import randint
 
 # Names and properties of our resource files
@@ -67,6 +67,15 @@ def showError(msg):
   exit(1)
 
 #----------------------------------------------------------------------------
+# Resource helpers
+#----------------------------------------------------------------------------
+
+def getResourceFile(basefile):
+  """ Get the fully qualified name of a resource file
+  """
+  return join(dirname(realpath(__file__)), basefile)
+
+#----------------------------------------------------------------------------
 # Image processing helpers
 #----------------------------------------------------------------------------
 
@@ -85,10 +94,10 @@ def createBackground(width, height):
   corkboard = Image.new("RGB", (width, height))
   # Load our background image (needs to be tileable)
   try:
-    background = Image.open(RESOURCE_BACKGROUND)
+    background = Image.open(getResourceFile(RESOURCE_BACKGROUND))
     background.load()
   except:
-    showError("Could not load background resource '%s'" % RESOURCE_BACKGROUND)
+    showError("Could not load background resource '%s'" % getResourceFile(RESOURCE_BACKGROUND))
   # Now tile it into the image
   x = 0
   while x < corkboard.size[0]:

@@ -7,7 +7,7 @@
 #  library.
 #----------------------------------------------------------------------------
 from sys     import argv
-from os.path import join, split, splitext, isfile
+from os.path import join, split, splitext, isfile, realpath, dirname
 
 # Names and properties of our resource files
 RESOURCE_FONT      = "caption.ttf"
@@ -93,6 +93,15 @@ def getArgument(args):
   return args[0], args[1:]
 
 #----------------------------------------------------------------------------
+# Resource helpers
+#----------------------------------------------------------------------------
+
+def getResourceFile(basefile):
+  """ Get the fully qualified name of a resource file
+  """
+  return join(dirname(realpath(__file__)), basefile)
+
+#----------------------------------------------------------------------------
 # Image processing helpers
 #----------------------------------------------------------------------------
 
@@ -174,7 +183,7 @@ def addCaption(image, caption):
   width, height = FONT_CAPTION.getsize(caption)
   while ((width > IMAGE_SIZE) or (height > IMAGE_BOTTOM)) and (size > 0):
     size = size - 2
-    FONT_CAPTION = ImageFont.truetype(RESOURCE_FONT, size)
+    FONT_CAPTION = ImageFont.truetype(getResourceFile(RESOURCE_FONT), size)
     width, height = FONT_CAPTION.getsize(caption)
   if (size <= 0):
     showError("Caption is too large")
@@ -225,7 +234,7 @@ if __name__ == "__main__":
   if not align in ("left", "right", "top", "bottom", "center"):
     showError("Unknown alignment '%s'." % align)
   # Prepare our resources
-  fontName = join(split(argv[0])[0], RESOURCE_FONT)
+  fontName = getResourceFile(RESOURCE_FONT)
   try:
     FONT_CAPTION = ImageFont.truetype(fontName, RESOURCE_FONT_SIZE)
   except:
